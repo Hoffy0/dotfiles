@@ -111,6 +111,7 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 PATH=~/.console-ninja/.bin:$PATH
 
@@ -135,8 +136,6 @@ eval "$(pyenv virtualenv-init -)"
 
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --zsh)"
-
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # -- Use fd instead of fzf --
 
