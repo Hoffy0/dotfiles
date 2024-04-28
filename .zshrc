@@ -100,6 +100,21 @@ source $ZSH/oh-my-zsh.sh
 alias zshconfig="nvim ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
+
+# Verificar si el sistema operativo es macOS
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # Configuraciones específicas para macOS
+    # Puedes colocar aquí tus configuraciones específicas para macOS
+    echo "Configuraciones para macOS"
+else
+    # Configuraciones para otros sistemas (asumiendo que no es macOS)
+    # Puedes colocar aquí tus configuraciones específicas para otros sistemas
+    echo "Configuraciones para otros sistemas (no macOS)"
+fi
+
+# Configuraciones comunes para todos los sistemas
+# Puedes colocar aquí configuraciones que se apliquen a todos los sistemas
+echo "Configuraciones comunes para todos los sistemas"
 neofetch
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
