@@ -15,7 +15,7 @@ El repositorio contiene las siguientes configuraciones:
   - `.stylua.toml`: Archivo de configuración para Stylua.
 - `.config/rofi/`: Configuración para Rofi.
   - `config.rasi`: Archivo de configuración para Rofi.
-- `git/.gitconfig`: Configuración personalizada para Git.
+- `.gitconfig`: Configuración personalizada para Git.
 - `.gitignore`: Archivos y carpetas a ignorar por Git.
 
 ## Requisitos
