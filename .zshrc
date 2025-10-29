@@ -179,3 +179,19 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# pnpm
+export PNPM_HOME="/home/hoffy/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+export PATH=/home/hoffy/.local/bin:$PATH
+
+# Alias para VS Code solo si estás en Wayland
+if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
+  alias code='env OZONE_PLATFORM=wayland code --ozone-platform=wayland --enable-features=WaylandWindowDecorations'
+  echo "🔷 Alias Wayland para VS Code cargado"
+fi
+alias reboot-windows='sudo efibootmgr -n 0005 && sudo reboot'
