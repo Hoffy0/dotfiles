@@ -1,0 +1,13 @@
+configuration {
+  show-icons: true;
+}
+* {
+  font: "JetBrainsMono Nerd Font 12";
+}
+element-icon {
+  size: 96px;
+}
+listview {
+  cycle: true;
+  dynamic: true;
+}

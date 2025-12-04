@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+CFG="${XDG_CONFIG_HOME:-$HOME/.config}/scripts/wallpaper.json"
+if [ -f "$CFG" ]; then
+  WALL_DIR="$(jq -r '.wallpapers_dir // empty' "$CFG" 2>/dev/null || true)"
+fi
+WALL_DIR="${WALL_DIR:-$HOME/Pictures/wallpapers}"
+EXTS='png jpg jpeg webp JPG JPEG PNG WEBP'
+
+THUMB_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/wall-thumbs"
+mkdir -p "$THUMB_DIR"
+
+SIZE=420
+
+mapfile -t FILES < <(bash -lc "
+shopt -s nullglob dotglob;
+for e in $EXTS; do
+  find \"$WALL_DIR\" -type f -iname \"*.\$e\";
+done | sort
+")
+
+[ ${#FILES[@]} -gt 0 ] || { notify-send 'Wallpapers' 'No se encontraron imágenes'; exit 1; }
+
+mkthumb() {
+  local src="$1"
+  local base
+  base=$(printf '%s' "$src" | sed 's|/|_|g')
+  local out="$THUMB_DIR/$base.png"
+
+  if [ ! -f "$out" ] || [ "$out" -ot "$src" ]; then
+    magick convert "$src" -auto-orient -thumbnail "${SIZE}x${SIZE}>" -strip "$out"
+  fi
+  printf '%s' "$out"
+}
+
+entries=()
+for i in "${!FILES[@]}"; do
+  f="${FILES[$i]}"
+  name="${f##*/}"
+  thumb=$(mkthumb "$f" || true)
+  if [ -f "$thumb" ]; then
+    entries+=("$i: $name\0icon\x1f$thumb")
+  else
+    entries+=("$i: $name")
+  fi
+done
+
+sel="$(printf '%b\n' "${entries[*]}" | rofi -dmenu -i -p 'Wallpaper' -show-icons -theme ~/.config/rofi/wallpaper-preview.rasi)" || exit 1
+
+idx="${sel%%:*}"
+[[ "$idx" =~ ^[0-9]+$ ]] || exit 1
+chosen="${FILES[$idx]}"
+
+# Llama a tu wrapper en ~/bin
+"$HOME/bin/wallpaper" --action set-wallpaper --path "$chosen"

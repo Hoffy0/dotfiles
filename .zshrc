@@ -195,3 +195,5 @@ if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
   echo "🔷 Alias Wayland para VS Code cargado"
 fi
 alias reboot-windows='sudo efibootmgr -n 0005 && sudo reboot'
+export PATH="$HOME/.config/scripts:$PATH"
+alias wallpaper="python3 ~/.config/scripts/wallpaper.py"

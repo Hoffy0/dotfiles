@@ -1,0 +1,15 @@
+{
+  "current_wallpaper": "/home/hoffy/Pictures/wallpapers/18.png",
+  "wallpapers_dir": "/home/hoffy/Pictures/wallpapers",
+  "allowed_extensions": [
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".webp"
+  ],
+  "picker": "rofi",
+  "use_swww": true,
+  "sww_tr_type": "any",
+  "sww_tr_duration": 0.6,
+  "sww_tr_fps": 60
+}
