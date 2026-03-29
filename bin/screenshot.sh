@@ -1,126 +1,92 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# === Config por defecto ===
+# === CONFIG ===
 OUT_DIR="${HOME}/Pictures/Screenshots"
-MODE="area"          # full | area | active
-ANNOTATE="no"        # yes | no
-COPY="yes"           # yes | no
-SOUND="no"           # yes | no (requiere paplay + tema de sonidos)
+STATE_FILE="/tmp/hypr_shot_state"
+LAST_GEO_FILE="/tmp/hypr_shot_geo"
+SOUND_PATH="/usr/share/sounds/freedesktop/stereo/camera-shutter.oga"
+# Slurp con colores Dracula para la selección de área
+SLURP_ARGS='-d -b 282a3666 -c bd93f9ff -s 00000000 -w 2'
 
-usage() {
-  cat <<EOF
-Uso: ${0##*/} [-m full|area|active] [-o DIR] [-A] [-C] [-S]
-  -m  Modo de captura (por defecto: area)
-  -o  Directorio de salida (por defecto: ${OUT_DIR})
-  -A  Abrir en swappy para anotar
-  -C  Copiar al portapapeles (wl-copy)
-  -S  Reproducir sonido (paplay)
-  -h  Ayuda
-Ejemplos:
-  ${0##*/} -m full
-  ${0##*/} -m active -A
-  ${0##*/} -m area -o ~/shots
-EOF
+mkdir -p "$OUT_DIR"
+
+# Estados
+SHOW_CURSOR=$(cat "$STATE_FILE" 2>/dev/null || echo "no")
+CURSOR_ICON=$([[ "$SHOW_CURSOR" == "yes" ]] && echo "󰆲" || echo "󰆳")
+
+# --- TEMA DRACULA PREMIUM ---
+ROFI_THEME="
+* {
+    background-color: transparent;
+    text-color: #f8f8f2;
+    font: \"JetBrainsMono Nerd Font 10\";
 }
-
-while getopts ":m:o:ACSh" opt; do
-  case "$opt" in
-    m) MODE="$OPTARG" ;;
-    o) OUT_DIR="$OPTARG" ;;
-    A) ANNOTATE="yes" ;;
-    C) COPY="yes" ;;
-    S) SOUND="yes" ;;
-    h) usage; exit 0 ;;
-    \?) echo "Opción inválida: -$OPTARG" >&2; usage; exit 1 ;;
-  esac
-done
-
-ts() { date +"%Y-%m-%d_%H-%M-%S"; }
-
-ensure_dir() {
-  mkdir -p "$OUT_DIR"
+window {
+    location: south; anchor: south; y-offset: -30px;
+    width: 580px; 
+    border: 2px; border-radius: 20px; border-color: #bd93f9;
+    background-color: #282a36;
 }
-
-notify() {
-  if command -v notify-send >/dev/null 2>&1; then
-    notify-send -a "Screenshot" "$1" "${2:-}"
-  fi
+mainbox { children: [ listview ]; }
+listview {
+    layout: horizontal;
+    spacing: 15px;
+    padding: 12px 18px;
+    fixed-height: true;
 }
-
-ding() {
-  if [ "$SOUND" = "yes" ] && command -v paplay >/dev/null 2>&1; then
-    paplay /usr/share/sounds/freedesktop/stereo/camera-shutter.oga 2>/dev/null || true
-  fi
+element {
+    padding: 10px 15px;
+    border-radius: 12px;
+    background-color: #44475a;
 }
-
-copy_clip() {
-  if [ "$COPY" = "yes" ] && command -v wl-copy >/dev/null 2>&1; then
-    wl-copy < "$1" || true
-  fi
+element selected {
+    background-color: #6272a4;
+    text-color: #50fa7b;
 }
+element-text { horizontal-align: 0.5; vertical-align: 0.5; cursor: pointer; }
+"
 
-annotate_swappy() {
-  if [ "$ANNOTATE" = "yes" ] && command -v swappy >/dev/null 2>&1; then
-    # swappy puede sobrescribir o exportar; acá sobrescribe el mismo archivo
-    SWAPPY_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/swappy"
-    mkdir -p "$SWAPPY_CONFIG_DIR"
-    swappy -f "$1" -o "$1"
-  fi
-}
+MENU_OPTS="󰒅 Área\n󰖭 Vent\n󰹑 Full\n$CURSOR_ICON Cursor\n󰑐 Rep"
 
-shoot_with_grimblast() {
-  local mode="$1" outfile="$2"
-  # grimblast: save/copy/copyarea/etc. Usamos save y luego copiamos si hace falta.
-  case "$mode" in
-    full)   grimblast save screen "$outfile" ;;
-    area)   grimblast save area  "$outfile" ;;
-    active) grimblast save active "$outfile" ;;
-    *) echo "Modo no soportado por grimblast: $mode" >&2; exit 2 ;;
-  esac
-}
+CHOICE=$(echo -e "$MENU_OPTS" | rofi -dmenu -config /dev/null -theme-str "$ROFI_THEME" -i)
 
-shoot_fallback() {
-  # Sin grimblast: full y area con grim+slurp
-  local mode="$1" outfile="$2"
-  case "$mode" in
-    full)
-      grim "$outfile"
-      ;;
-    area)
-      local geo
-      geo="$(slurp -d -b 00000077 -c FFFFFFDD -s FFFFFFAA)"
-      grim -g "$geo" "$outfile"
-      ;;
-    active)
-      echo "Modo 'active' requiere grimblast. Instálalo (hyprland-contrib)." >&2
-      exit 3
-      ;;
-    *)
-      echo "Modo no soportado: $mode" >&2; exit 2 ;;
-  esac
-}
+case "$CHOICE" in
+    *"Cursor"*)
+        [[ "$SHOW_CURSOR" == "yes" ]] && echo "no" > "$STATE_FILE" || echo "yes" > "$STATE_FILE"
+        exec "$0" 
+        ;;
+    *"Área"*)
+        GEOMETRY=$(slurp $SLURP_ARGS) || exit 0
+        echo "$GEOMETRY" > "$LAST_GEO_FILE"
+        ;;
+    *"Rep"*)
+        GEOMETRY=$(cat "$LAST_GEO_FILE" 2>/dev/null || slurp $SLURP_ARGS)
+        ;;
+    *"Vent"*)
+        GEOMETRY=$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')
+        ;;
+    *"Full"*)
+        GEOMETRY=""
+        ;;
+    *) exit 0 ;;
+esac
 
-main() {
-  ensure_dir
-  local file="${OUT_DIR}/Screenshot_$(ts).png"
+# --- FORMATO DE NOMBRE ESTILO GNOME ---
+# Formato: Screenshot from 2025-12-18 12-01-54.png
+TIMESTAMP=$(date +"%Y-%m-%d %H-%M-%S")
+FILENAME="${OUT_DIR}/Screenshot From ${TIMESTAMP}.png"
 
-  if command -v grimblast >/dev/null 2>&1; then
-    shoot_with_grimblast "$MODE" "$file"
-  else
-    # Chequeos mínimos
-    command -v grim >/dev/null 2>&1 || { echo "Falta 'grim'"; exit 1; }
-    if [ "$MODE" = "area" ]; then
-      command -v slurp >/dev/null 2>&1 || { echo "Falta 'slurp'"; exit 1; }
-    fi
-    shoot_fallback "$MODE" "$file"
-  fi
+# --- Ejecución ---
+CURSOR_FLAG=$([[ "$(cat "$STATE_FILE" 2>/dev/null)" == "yes" ]] && echo "-p" || echo "")
 
-  annotate_swappy "$file"
-  copy_clip "$file"
-  ding
-  notify "Captura guardada" "$file"
-  echo "$file"
-}
+if [ -z "$GEOMETRY" ]; then
+    grim $CURSOR_FLAG "$FILENAME"
+else
+    grim $CURSOR_FLAG -g "$GEOMETRY" "$FILENAME"
+fi
 
-main "$@"
+# Acciones finales
+wl-copy < "$FILENAME"
+paplay "$SOUND_PATH" 2>/dev/null || true
+notify-send -a "Screenshot" -i "camera-photo-symbolic" "¡Capturado!" "Guardado como: Screenshot from ${TIMESTAMP}.png"

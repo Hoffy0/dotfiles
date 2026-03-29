@@ -1,0 +1,47 @@
+@define-color bg-glass rgba(46, 52, 64, 0.75);
+@define-color border-glass rgba(255, 255, 255, 0.2);
+
+/* MATAR EL CUADRADO GRIS EXTERIOR */
+window, 
+.notification-window,
+.notification-row {
+    background-color: transparent;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+}
+
+/* LA BURBUJA (Lo que debe flotar) */
+.notification {
+    background-color: @bg-glass;
+    border: 1px solid @border-glass;
+    border-radius: 16px;
+    color: #eceff4;
+    padding: 15px;
+    margin: 10px 25px; /* Margen para que flote bien */
+}
+
+.notification:hover {
+    background-color: rgba(59, 66, 82, 0.85);
+}
+
+/* PANEL CENTRAL */
+.control-center {
+    background-color: rgba(46, 52, 64, 0.5);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    margin: 10px;
+}
+
+.summary {
+    color: #88c0d0;
+    font-weight: bold;
+}
+
+.body {
+    color: #eceff4;
+}
+
+.control-center-list {
+    background-color: transparent;
+}

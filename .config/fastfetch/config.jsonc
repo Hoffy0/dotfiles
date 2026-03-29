@@ -1,0 +1,100 @@
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+    "logo": {
+        "type": "kitty",
+        "source": "~/.config/fastfetch/logos/fedora.png",
+        "width": 30,
+        "height": 14,
+        "padding": {
+            "top": 2,
+            "left": 2
+        }
+    },
+    
+    "display": {
+        "separator": " ➜  ",
+        "color": {
+            "keys": "magenta",
+            "title": "blue"
+        },
+        "percent": {
+            "type": 3 // Muestra número y barra de progreso
+        },
+        "key": {
+            "width": 3
+        }
+    },
+    "modules": [
+        "title",
+        "separator",
+        // --- SOFTWARE ---
+        {
+            "type": "os",
+            "key": " OS",
+            "keyColor": "blue"
+        },
+        {
+            "type": "kernel",
+            "key": " Ker",
+            "keyColor": "white"
+        },
+        {
+            "type": "packages",
+            "key": "󰏖 Pkg",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "shell",
+            "key": " Sh ",
+            "keyColor": "cyan"
+        },
+        "break",
+        // --- HARDWARE ---
+        {
+            "type": "cpu",
+            "key": " CPU",
+            "keyColor": "red"
+        },
+        {
+            "type": "gpu",
+            "key": "󰾲 GPU",
+            "keyColor": "green"
+        },
+        {
+            "type": "memory",
+            "key": " RAM",
+            "keyColor": "magenta"
+        },
+        {
+            "type": "disk",
+            "key": " DSK",
+            "keyColor": "blue"
+        },
+        "break",
+        // --- NETWORK ---
+        {
+            "type": "localip",
+            "key": "󰩟 Loc",
+            "keyColor": "cyan",
+            "compact": true
+        },
+        // {
+        //     "type": "publicip", // <-- Este es el que te falta
+        //     "key": "󰖟 Pub",
+        //     "keyColor": "blue",
+        //     "timeout": 1000
+        // },
+        "break",
+        // --- ESTILO ---
+        {
+            "type": "colors",
+            "symbol": "circle",
+            "block": {
+                "range": [
+                    1,
+                    6
+                ]
+            }
+        }
+    ]
+}

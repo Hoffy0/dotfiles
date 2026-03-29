@@ -29,7 +29,7 @@ mkthumb() {
   local out="$THUMB_DIR/$base.png"
 
   if [ ! -f "$out" ] || [ "$out" -ot "$src" ]; then
-    magick convert "$src" -auto-orient -thumbnail "${SIZE}x${SIZE}>" -strip "$out"
+    magick "$src" -auto-orient -thumbnail "${SIZE}x${SIZE}>" -strip "$out"
   fi
   printf '%s' "$out"
 }

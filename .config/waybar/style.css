@@ -1,155 +1,89 @@
-@define-color bar-bg rgba(30, 30, 46, 0);
-@define-color main-bg rgba(30, 30, 46, 0.8);
-@define-color main-fg rgba(180,190,254,1);
-@define-color wb-act-bg rgba(180,190,254,0.9);
-@define-color wb-act-fg rgba(0,0,0,0.7);
-@define-color wb-hvr-bg rgba(75,75,125,0.4);
-@define-color wb-hvr-fg rgba(174,170,240,0.8);
-
 * {
+    font-family: "JetBrainsMono Nerd Font", "SF Pro Display", "sans-serif";
+    font-size: 13px;
+    background-color: transparent;
     border: none;
-    border-radius: 0px;
-    font-family: "JetBrainsMono Nerd Font";
-    font-weight: bold;
-    font-size: 12px;
-    min-height: 10px;
+    box-shadow: none;
 }
 
 window#waybar {
-    background: @bar-bg;
-    border-radius: 15px;
+    background-color: rgba(46, 52, 64, 0.35);
+    color: #eceff4;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-tooltip {
-    background: @main-bg;
-    color: @main-fg;
-    border-radius: 7px;
-    border-width: 0px;
+/* Limpieza total de contenedores para que no aparezcan bloques sólidos */
+#workspaces, 
+#taskbar, 
+#clock, 
+#tray, 
+#custom-notification, 
+#custom-power,
+#group-system-info, 
+#group-system-levels, 
+#group-control-panel, 
+box, 
+widget {
+    background-color: rgba(0, 0, 0, 0);
+    padding: 0;
+    margin: 0;
 }
 
-#workspaces,
-#taskbar {
-    padding: 0px;
+/* === SECCIÓN DE MÉTRICAS (CPU, RAM, GPU) === */
+/* Arreglamos la ubicación y el espaciado de las métricas centrales */
+#custom-cpu, 
+#custom-ram, 
+#custom-gpu {
+    margin: 0 12px; /* Más aire entre cada métrica */
+    padding: 0 5px;
+}
+
+/* Colores Nord para identificar rápido cada recurso */
+#custom-cpu { color: #88c0d0; } /* Azul Frost */
+#custom-ram { color: #b48ead; } /* Púrpura */
+#custom-gpu { color: #a3be8c; } /* Verde */
+
+/* === SECCIÓN DE ICONOS DERECHA === */
+#custom-volume, 
+#custom-brightness, 
+#custom-battery, 
+#custom-microphone,
+#tray, 
+#custom-notification {
+    margin: 0 8px; 
+    padding: 0 2px;
+}
+
+/* Botón de Power: Alejado del borde derecho para simular Apple Glass */
+#custom-power {
+    margin-left: 15px;
+    margin-right: 25px; 
+    color: #bf616a;
+}
+
+/* Estilos de Workspaces */
+#workspaces button.active {
+    background-color: rgba(136, 192, 208, 0.25);
+    color: #88c0d0;
+    border-radius: 10px;
+    margin: 6px 4px;
 }
 
 #workspaces button {
-    box-shadow: none;
-	text-shadow: none;
-    padding: 0px;
-    border-radius: 9px;
-    margin-top: 3px;
-    margin-bottom: 3px;
-    margin-left: 0px;
-    padding-left: 3px;
-    padding-right: 3px;
-    margin-right: 0px;
-    color: @main-fg;
-    animation: ws_normal 20s ease-in-out 1;
+    color: #4c566a;
+    padding: 0 8px;
 }
 
-#workspaces button.active {
-    background: @wb-act-bg;
-    color: @wb-act-fg;
-    margin-left: 3px;
-    padding-left: 12px;
-    padding-right: 12px;
-    margin-right: 3px;
-    animation: ws_active 20s ease-in-out 1;
-    transition: all 0.4s cubic-bezier(.55,-0.68,.48,1.682);
+#clock {
+    font-weight: bold;
+    color: #d8dee9;
+    padding: 0 10px;
 }
 
-#workspaces button:hover {
-    background: @wb-hvr-bg;
-    color: @wb-hvr-fg;
-    animation: ws_hover 20s ease-in-out 1;
-    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
-}
-
-#taskbar button {
-    box-shadow: none;
-	text-shadow: none;
-    padding: 0px;
-    border-radius: 9px;
-    margin-top: 3px;
-    margin-bottom: 3px;
-    margin-left: 0px;
-    padding-left: 3px;
-    padding-right: 3px;
-    margin-right: 0px;
-    color: @wb-color;
-    animation: tb_normal 20s ease-in-out 1;
-}
-
-#taskbar button.active {
-    background: @wb-act-bg;
-    color: @wb-act-color;
-    margin-left: 3px;
-    padding-left: 12px;
-    padding-right: 12px;
-    margin-right: 3px;
-    animation: tb_active 20s ease-in-out 1;
-    transition: all 0.4s cubic-bezier(.55,-0.68,.48,1.682);
-}
-
-#taskbar button:hover {
-    background: @wb-hvr-bg;
-    color: @wb-hvr-color;
-    animation: tb_hover 20s ease-in-out 1;
-    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
-}
-
-#tray menu * {
-    min-height: 16px
-}
-
-#tray menu separator {
-    min-height: 10px
-}
-
-
-#tray,
-#workspaces,
-#taskbar,
-#cpu,
-#custom-cpuinfo,
-#memory,
-#custom-gpuinfo,
-#clock,
-#idle_inhibitor,
-#custom-battery,
-#custom-brightness,
-#custom-volume,
-#custom-microphone,
-#language,
-#custom-system-update,
-#custom-do-not-disturb,
-#custom-vpn,
-#custom-bluetooth,
-#custom-networkmanager,
-#custom-power,
-#custom-l_end,
-#custom-r_end {
-    color: @main-fg;
-    background: @main-bg;
-    opacity: 1;
-    margin: 4px 0px 4px 0px;
-    padding-left: 4px;
-    padding-right: 4px;
-}
-
-#custom-r_end {
-    border-radius: 0px 21px 21px 0px;
-    margin-right: 9px;
-    padding-right: 3px;
-}
-
-#custom-l_end {
-    border-radius: 21px 0px 0px 21px;
-    margin-left: 9px;
-    padding-left: 3px;
-}
-
-#custom-padd_bg {
-    background: @main-bg;
-    margin: 4px 0px 4px 0px;
+/* Tooltips con estilo Nord Glass */
+tooltip {
+    background-color: rgba(46, 52, 64, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
 }

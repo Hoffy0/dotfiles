@@ -45,7 +45,8 @@ dummywall {
     orientation:                 horizontal;
     children:                    [ "mode-switcher" ];
     background-color:            transparent;
-    background-image:            url("~/.config/meowrch/current_wallpaper", height);
+    /* Apuntamos a tu carpeta de wallpapers */
+    background-image: url("~/.local/share/wallpapers/.current.wall", height);
 }
 
 

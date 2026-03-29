@@ -1,10 +1,20 @@
 * {
-    main-bg:            #11111be6;
-    main-fg:            #cdd6f4ff;
-    main-br:            #b4befeff;
-    main-ex:            #f5e0dcff;
-    select-bg:          #b4befeff;
-    select-fg:          #11111bff;
+    /* Fondo: Nord Night con 40% de opacidad para el efecto glass */
+    main-bg:            rgba(46, 52, 64, 0.4); 
+    
+    /* Texto: Nord Snow Storm (Blanco azulado) */
+    main-fg:            #eceff4ff;
+    
+    /* Bordes: Blanco muy sutil para simular el reflejo del cristal */
+    main-br:            rgba(255, 255, 255, 0.15);
+    
+    /* Acento: Nord Frost (Azul brillante) */
+    main-ex:            #88c0d0ff;
+    
+    /* Selección: El color de la "píldora" al navegar */
+    select-bg:          rgba(136, 192, 208, 0.3);
+    select-fg:          #eceff4ff;
+    
     separatorcolor:     transparent;
-    border-color:       transparent;
+    border-color:       @main-br;
 }
