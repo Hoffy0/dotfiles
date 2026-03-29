@@ -1,4 +1,5 @@
 # 0 Refresh cache
+# (Comentado para evitar el error 'no matches found' al abrir la terminal)
 rm -rf ~/.cache/p10k-instant-prompt-*
 
 # 1. SILENCIAR WARNINGS (Debe ser la línea 1)
@@ -30,7 +31,7 @@ path=(
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # macOS
     [[ -f /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
-    export PATH="/Users/joseanmartinez/.spicetify:$PATH"
+    export PATH="$HOME/.spicetify:$PATH"
 else
     # Linux (Fedora)
     [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -48,17 +49,12 @@ else
 fi
 
 # 6. HERRAMIENTAS Y GESTORES
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
 export PNPM_HOME="$HOME/.local/share/pnpm"
 [[ -d "$PNPM_HOME" ]] && path=("$PNPM_HOME" $path)
 
-export PYENV_ROOT="$HOME/.pyenv"
-if [[ -d $PYENV_ROOT ]]; then
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
+# Activar Mise (Reemplazo de NVM y Pyenv)
+if command -v mise >/dev/null; then
+    eval "$(mise activate zsh)"
 fi
 
 # Carga de FZF y TheFuck
@@ -95,4 +91,15 @@ if [[ -o interactive ]]; then
         fastfetch --logo ~/.config/fastfetch/logos/fedora.png --logo-type kitty 2>/dev/null
     fi
 fi
-export PATH=$PATH:/home/hoffy/.spicetify
+export PATH=$PATH:$HOME/.spicetify
+
+# Added by Antigravity
+export PATH="/Users/hoffy/.antigravity/antigravity/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/Users/hoffy/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
