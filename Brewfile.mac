@@ -1,0 +1,15 @@
+# ==========================================
+# macOS only — ejecutar con: brew bundle --file=Brewfile.mac
+# ==========================================
+tap "nikitabobko/tap"
+tap "homebrew/cask-fonts"
+
+cask "1password"
+cask "raycast"
+# cask "aerospace"
+cask "ghostty"
+cask "antigravity"
+cask "orbstack"
+cask "datagrip"
+cask "apidog"
+# cask "zen-browser"

@@ -24,6 +24,7 @@
         "custom/gpu",
         "custom/volume",
         "custom/bluetooth",
+        "network",
         "tray",
         "custom/notification",
         "custom/power"
@@ -114,6 +115,16 @@
         "rotate": 0,
         "on-click": "blueman-manager",
         "tooltip": false
+    },
+    "network": {
+        "format-ethernet": "󰈀  {ipaddr}",
+        "format-wifi": "󰤨  {ipaddr}",
+        "format-disconnected": "󰤭  Sin red",
+        "tooltip-format-ethernet": "{ifname}  ·  {ipaddr}/{cidr}\nGW: {gwaddr}",
+        "tooltip-format-wifi": "{essid}  ·  {signalStrength}%\n{ipaddr}/{cidr}",
+        "tooltip-format-disconnected": "Sin conexión activa",
+        "on-click": "bash $HOME/bin/rofi-menus/network-manager.sh",
+        "interval": 5
     },
     "tray": {
         "icon-size": 16,

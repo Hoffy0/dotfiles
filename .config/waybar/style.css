@@ -81,6 +81,17 @@ widget {
     padding: 0 10px;
 }
 
+/* Red */
+#network {
+    color: #a3be8c;
+    margin: 0 8px;
+    padding: 0 2px;
+}
+
+#network.disconnected {
+    color: #bf616a;
+}
+
 /* Tooltips con estilo Nord Glass */
 tooltip {
     background-color: rgba(46, 52, 64, 0.9);

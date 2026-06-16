@@ -1,0 +1,15 @@
+# Linux (Fedora) — sourced automáticamente desde .zshrc
+
+[[ -f /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+path=(/home/linuxbrew/.linuxbrew/bin/ninja $path)
+
+alias reboot-windows='sudo efibootmgr -n 0005 && sudo reboot'
+
+if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
+    alias code='env OZONE_PLATFORM=wayland code --ozone-platform=wayland --enable-features=WaylandWindowDecorations'
+fi
+
+explorer() {
+    local path="${1:-.}"
+    /usr/bin/nautilus "$path" >/dev/null 2>&1 & disown
+}
