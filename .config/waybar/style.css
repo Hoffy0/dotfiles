@@ -92,6 +92,27 @@ widget {
     color: #bf616a;
 }
 
+/* Keyboard layout */
+#language {
+    color: #ebcb8b;
+    margin: 0 8px;
+    padding: 0 2px;
+}
+
+/* Privacy (screenshare + mic) */
+#privacy {
+    margin: 0 6px;
+    padding: 0 2px;
+}
+
+#privacy-item.screenshare {
+    color: #ebcb8b;
+}
+
+#privacy-item.audio-in {
+    color: #bf616a;
+}
+
 /* Tooltips con estilo Nord Glass */
 tooltip {
     background-color: rgba(46, 52, 64, 0.9);

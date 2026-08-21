@@ -22,7 +22,9 @@
         "custom/cpu",
         "custom/ram",
         "custom/gpu",
+        "hyprland/language",
         "custom/volume",
+        "privacy",
         "custom/bluetooth",
         "network",
         "tray",
@@ -105,26 +107,51 @@
         "scroll-step": 5,
         "tooltip": false
     },
+    "privacy": {
+        "icon-spacing": 6,
+        "icon-size": 14,
+        "transition-duration": 250,
+        "modules": [
+            {
+                "type": "screenshare",
+                "tooltip": true,
+                "tooltip-icon-size": 24
+            },
+            {
+                "type": "audio-in",
+                "tooltip": true,
+                "tooltip-icon-size": 24
+            }
+        ]
+    },
     "custom/notification": {
         "format": "󰂚",
         "on-click": "swaync-client -t -sw"
     },
+    "hyprland/language": {
+        "format": "󰌌  {}",
+        "format-en": "EN",
+        "format-es": "ES",
+        "on-click": "hyprctl switchxkblayout all next",
+        "tooltip": false
+    },
     "custom/bluetooth": {
-        "format": "<span color=\"#89b4fa\">󰂯  </span>",
-        "interval": 3,
+        "exec": "bash $HOME/bin/bluetooth-status.sh",
+        "return-type": "json",
+        "interval": 5,
         "rotate": 0,
         "on-click": "blueman-manager",
-        "tooltip": false
+        "tooltip": true
     },
     "network": {
         "format-ethernet": "󰈀  {ipaddr}",
         "format-wifi": "󰤨  {ipaddr}",
         "format-disconnected": "󰤭  Sin red",
-        "tooltip-format-ethernet": "{ifname}  ·  {ipaddr}/{cidr}\nGW: {gwaddr}",
-        "tooltip-format-wifi": "{essid}  ·  {signalStrength}%\n{ipaddr}/{cidr}",
+        "tooltip-format-ethernet": "{ifname}  ·  {ipaddr}/{cidr}\nGW: {gwaddr}\n↑ {bandwidthUpBytes}  ↓ {bandwidthDownBytes}",
+        "tooltip-format-wifi": "{essid}  ·  {signalStrength}%\n{ipaddr}/{cidr}\n↑ {bandwidthUpBytes}  ↓ {bandwidthDownBytes}",
         "tooltip-format-disconnected": "Sin conexión activa",
         "on-click": "bash $HOME/bin/rofi-menus/network-manager.sh",
-        "interval": 5
+        "interval": 3
     },
     "tray": {
         "icon-size": 16,
