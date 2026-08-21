@@ -1,0 +1,27 @@
+[Unit]
+Description=Noctalia shell (quickshell)
+Documentation=https://docs.noctalia.dev
+# Antes se lanzaba con 'exec-once' desde hyprland.conf: si el proceso moria,
+# la sesion quedaba sin barra, sin notificaciones y sin launcher hasta
+# reiniciar. En NVIDIA las superficies EGL se pierden cada tanto
+# (eglSwapBuffers failed with 0x3000) y quickshell termina.
+After=graphical-session.target
+# Si Hyprland ya no esta (logout), qs falla al instante. Tras 5 intentos en
+# 30s systemd se rinde, en vez de reintentar para siempre.
+StartLimitIntervalSec=30
+StartLimitBurst=5
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/qs -c noctalia-shell
+Restart=always
+RestartSec=2
+# El manager ya hereda esto de hyprland.conf via
+# 'dbus-update-activation-environment --systemd --all', pero el orden de los
+# exec-once no esta garantizado y sin QT_QPA_PLATFORM Qt no crea contexto EGL:
+# noctalia arranca pero no dibuja ninguna layer.
+Environment=QT_QPA_PLATFORM=wayland;xcb
+Slice=session.slice
+
+[Install]
+WantedBy=graphical-session.target

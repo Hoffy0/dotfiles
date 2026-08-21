@@ -1,0 +1,18 @@
+# noctalia-greeter: config declarativa. Se instala en /var/lib/noctalia-greeter/greeter.toml
+# (owner greetd:greetd, 0640, SELinux xdm_var_lib_t).
+#
+# Nota: [appearance.wallpaper] esta documentado por el propio binario pero
+# noctalia-greeter 1.2.1 NO lo renderiza. Verificado corriendo el greeter
+# anidado: path, per-output, sync.toml, PNG/JPG, fill_mode -> sin efecto.
+# Para tematizar usar [appearance] scheme o [appearance.palette].
+
+[cursor]
+theme = "Bibata-Modern-Classic"
+size = 24
+
+[keyboard]
+layout = "es"
+
+[output]
+name = "DP-5"
+scale = 1.5

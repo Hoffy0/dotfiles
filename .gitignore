@@ -7,3 +7,6 @@
 **/__pycache__/
 *.py[cod]
 *$py.class
+# noctalia: colores derivados del wallpaper/esquema, se regeneran solos
+.config/noctalia/colors.json
+.config/noctalia/settings.json.*

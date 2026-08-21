@@ -162,8 +162,10 @@ main() {
     fi
 
     if [[ -f "$wall" ]]; then
-        # Ejecutamos el set-wallpaper y cerramos para no interferir con la animación
-        ( sh "$HOME/bin/set-wallpaper.sh" "$wall" & )
+        # Noctalia gestiona el wallpaper (swww-daemon ya no corre).
+        # El "" final = todos los monitores. Noctalia acepta rutas fuera de su
+        # directorio escaneado, por eso .hidden funciona sin exponerlo en su picker.
+        ( qs -c noctalia-shell ipc call wallpaper set "$wall" "" & )
         exit 0
     fi
 }
