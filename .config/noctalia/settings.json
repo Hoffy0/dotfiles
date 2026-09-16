@@ -497,8 +497,8 @@
     "nightLight": {
         "autoSchedule": true,
         "dayTemp": "6500",
-        "enabled": true,
-        "forced": true,
+        "enabled": false,
+        "forced": false,
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
         "nightTemp": "4000"
@@ -615,10 +615,10 @@
             },
             {
                 "action": "userspaceReboot",
-                "command": "",
+                "command": "~/bin/reboot-to-windows.sh",
                 "countdownEnabled": true,
-                "enabled": false,
-                "keybind": ""
+                "enabled": true,
+                "keybind": "8"
             }
         ],
         "showHeader": true,
@@ -668,7 +668,7 @@
         "translucentWidgets": false
     },
     "wallpaper": {
-        "automationEnabled": true,
+        "automationEnabled": false,
         "directory": "/home/hoffy/Pictures/wallpapers",
         "enableMultiMonitorDirectories": false,
         "enabled": true,

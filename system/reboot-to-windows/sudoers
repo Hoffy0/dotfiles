@@ -1,0 +1,7 @@
+# Allow the desktop user to flip the UEFI BootNext variable to Windows without a
+# password prompt, so the Noctalia session menu entry can work non-interactively.
+#
+# The rule is deliberately narrow: one root-owned script, no arguments allowed.
+# The script itself only ever writes BootNext; it cannot add, delete or reorder
+# boot entries, and it does not reboot.
+hoffy ALL=(root) NOPASSWD: /usr/local/bin/set-bootnext-windows ""

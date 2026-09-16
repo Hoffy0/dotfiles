@@ -10,6 +10,16 @@ After=graphical-session.target
 # 30s systemd se rinde, en vez de reintentar para siempre.
 StartLimitIntervalSec=30
 StartLimitBurst=5
+# Noctalia es el shell de Hyprland. GNOME tambien activa
+# graphical-session.target, asi que con [Install] WantedBy=... systemd lo
+# levantaba tambien dentro de la sesion GNOME por RDP: ahi su widget de red
+# corre 'nmcli networking connectivity check', y como esa sesion es Remote=yes
+# sin Seat, polkit la deniega -> "System policy prevents control of network
+# connections" cada pocos segundos.
+#
+# Por eso NO lleva [Install]: el unico que lo arranca es el exec-once de
+# hyprland.conf, que por definicion solo corre bajo Hyprland.
+ConditionEnvironment=XDG_CURRENT_DESKTOP=Hyprland
 
 [Service]
 Type=simple
@@ -22,6 +32,3 @@ RestartSec=2
 # noctalia arranca pero no dibuja ninguna layer.
 Environment=QT_QPA_PLATFORM=wayland;xcb
 Slice=session.slice
-
-[Install]
-WantedBy=graphical-session.target

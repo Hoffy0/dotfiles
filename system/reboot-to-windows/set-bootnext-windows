@@ -1,0 +1,20 @@
+#!/bin/sh
+# Sets the UEFI BootNext variable to the "Windows Boot Manager" entry so that the
+# next boot goes straight to Windows, then falls back to the normal boot order.
+#
+# Installed to /usr/local/bin and run through a narrow NOPASSWD sudoers rule,
+# because writing EFI variables requires root. It deliberately does NOT reboot:
+# the caller does that as the unprivileged user via systemctl/logind.
+set -eu
+
+bootnum=$(efibootmgr \
+  | sed -n 's/^Boot\([0-9A-Fa-f]\{4\}\)\*\{0,1\}[[:space:]]\{1,\}Windows Boot Manager.*/\1/p' \
+  | head -n 1)
+
+if [ -z "$bootnum" ]; then
+  echo "set-bootnext-windows: no 'Windows Boot Manager' entry found in efibootmgr" >&2
+  exit 1
+fi
+
+efibootmgr --bootnext "$bootnum" >/dev/null
+echo "$bootnum"
