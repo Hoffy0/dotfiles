@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 # Reemplaza GDM por noctalia-greeter (greetd). Fedora + SELinux enforcing.
+#
+# !! NO CORRER mientras se use RDP: GNOME Remote Login (gnome-remote-desktop
+# !! --system) depende de GDM y deja de escuchar en 3389 sin el. Ver README.md.
 # Esto NO lo cubre stow: son archivos de root y estado de systemd/SELinux.
 #
 #   sudo ./system/noctalia-greeter/install.sh
