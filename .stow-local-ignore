@@ -1,4 +1,13 @@
-README.md
-/.git
-.gitignore
-/system
+# Este archivo REEMPLAZA la lista por defecto de stow: hay que repetirla.
+# Regex Perl; con "^/" ancla a la raiz del repo, sin ella matchea el basename.
+\.git
+\.gitignore
+\.gitmodules
+\.stow-local-ignore
+\.DS_Store
+^/README.*
+^/LICENSE.*
+^/install\.sh
+^/Brewfile.*
+^/system
+^/\.claude
