@@ -1,12 +1,15 @@
 # ==========================================
 # macOS only — ejecutar con: brew bundle --file=Brewfile.mac
 # ==========================================
-tap "nikitabobko/tap"
-tap "homebrew/cask-fonts"
+# tap "nikitabobko/tap"   # aerospace
 
+brew "fastfetch"
+
+cask "font-jetbrains-mono-nerd-font"
 cask "1password"
+cask "1password-cli"
 cask "raycast"
-# cask "aerospace"
+# cask "nikitabobko/tap/aerospace"
 cask "ghostty"
 cask "antigravity"
 cask "orbstack"
