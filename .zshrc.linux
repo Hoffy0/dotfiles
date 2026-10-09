@@ -1,7 +1,6 @@
 # Linux (Fedora) — sourced automáticamente desde .zshrc
 
 [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-path=(/home/linuxbrew/.linuxbrew/bin/ninja $path)
 
 alias reboot-windows='sudo efibootmgr -n 0005 && sudo reboot'
 

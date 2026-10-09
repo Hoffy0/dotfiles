@@ -70,5 +70,4 @@ setopt hist_verify
 # 9. P10K
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export PATH=$PATH:/home/hoffy/.spicetify
 export PATH=$PATH:$HOME/.spicetify
