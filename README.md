@@ -61,8 +61,13 @@ Esto **no** lo cubre `install.sh`.
    El alias `reboot-windows` de `.zshrc.linux` usa la entrada EFI `0005` fija. Después de reinstalar, revisarla con `efibootmgr`. El script `bin/reboot-to-windows.sh` no tiene ese problema: busca la entrada por nombre.
 5. **Grupo docker**: cerrar sesión y volver a entrar para usar `docker` sin sudo.
 6. **Logins**: `gh auth login`, 1Password (activar el agente SSH en Ajustes → Desarrollador), Tailscale (`sudo tailscale up`), Twingate y `az login`.
-7. **VS Code**: activar Settings Sync para recuperar las extensiones y la configuración.
-8. **Neovim**: abrir `nvim` una vez para que lazy.nvim instale los plugins. `lazy-lock.json` no se versiona.
+7. **Remote del repo a SSH**: el clon inicial es por HTTPS porque el agente SSH de 1Password todavía no existe. Una vez activado (paso 6), cambiar el remote para poder hacer push:
+   ```bash
+   ssh -T git@github.com    # tiene que responder "Hi Hoffy0!"
+   git -C ~/.dotfiles remote set-url origin git@github.com:Hoffy0/dotfiles.git
+   ```
+8. **VS Code**: activar Settings Sync para recuperar las extensiones y la configuración.
+9. **Neovim**: abrir `nvim` una vez para que lazy.nvim instale los plugins. `lazy-lock.json` no se versiona.
 
 ### No activar: noctalia-greeter
 
