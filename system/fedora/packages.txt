@@ -1,0 +1,82 @@
+# Paquetes instalados a mano sobre Fedora Workstation (base GNOME no incluida).
+# Generado de `dnf repoquery --userinstalled` el 2026-10-09 y curado.
+
+# --- Shell / CLI
+zsh
+stow
+git
+gh
+fastfetch
+btop
+jq
+efibootmgr
+wget2-wget
+unzip
+tree
+nmap-ncat
+gcc-c++
+
+# --- NVIDIA (RPM Fusion nonfree)
+akmod-nvidia
+xorg-x11-drv-nvidia-cuda
+
+# --- Hyprland + Noctalia (COPR lionheartp/Hyprland)
+hyprland
+hyprpaper
+hyprpicker
+noctalia-shell-legacy
+noctalia-qs-legacy
+noctalia-greeter
+greetd
+greetd-selinux
+xdg-desktop-portal-gtk
+lxpolkit
+bibata-cursor-themes
+nwg-look
+qadwaitadecorations-qt5
+
+# --- Utilidades de escritorio que usan bin/ y keybindings
+ghostty
+rofi
+wofi
+cliphist
+wl-clipboard
+grim
+slurp
+swappy
+ImageMagick
+playerctl
+pamixer
+pavucontrol
+blueman
+nautilus
+awww
+swaybg
+waybar
+SwayNotificationCenter
+dunst
+
+# --- Apps (repos de terceros en system/fedora/repos)
+google-chrome-stable
+brave-browser
+code
+1password
+antigravity
+beekeeper-studio
+lens
+tailscale
+twingate-latest
+docker-ce
+docker-ce-cli
+containerd.io
+docker-buildx-plugin
+docker-compose-plugin
+podman
+azure-cli
+mysql
+postgresql
+vlc
+gamemode
+
+# Instalados desde .rpm descargado (sin repo), van a mano:
+#   webex, genoffice

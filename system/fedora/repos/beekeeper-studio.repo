@@ -1,0 +1,6 @@
+[beekeeper-studio]
+name=Beekeeper Studio Repository
+baseurl=https://rpm.beekeeperstudio.io/repo/
+enabled=1
+gpgcheck=1
+gpgkey=https://rpm.beekeeperstudio.io/repo/repodata/repomd.xml.asc

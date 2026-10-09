@@ -1,0 +1,5 @@
+lionheartp/Hyprland
+scottames/ghostty
+sdegler/hyprland
+peterwu/rendezvous
+phracek/PyCharm

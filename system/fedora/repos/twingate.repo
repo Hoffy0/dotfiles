@@ -1,0 +1,4 @@
+[packages.twingate.com_rpm_]
+name=packages.twingate.com_rpm_ - Created by dnf5 config-manager
+enabled=1
+baseurl=https://packages.twingate.com/rpm/
