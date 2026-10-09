@@ -4,9 +4,24 @@ Configuración personal para **Fedora 43 + Hyprland + Noctalia** (equipo princip
 
 ## Instalación
 
+En una máquina recién instalada, una sola línea:
+
 ```bash
-git clone https://github.com/Hoffy0/dotfiles.git ~/.dotfiles
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hoffy0/dotfiles/main/install.sh)"
+```
+
+El script instala `git` si falta, clona el repo en `~/.dotfiles` (o hace `git pull` si ya existe) y se vuelve a ejecutar desde el clon. `curl -fsSL ... | bash` también funciona, pero la forma de arriba descarga el script completo antes de correrlo y no le quita el teclado a `sudo` ni a `chsh`.
+
+Si el repo ya está clonado:
+
+```bash
 ~/.dotfiles/install.sh
+```
+
+Variables opcionales: `DOTFILES_DIR` (destino, por defecto `~/.dotfiles`), `DOTFILES_REPO` y `DOTFILES_BRANCH` (por defecto `main`). Por ejemplo, para probar una rama:
+
+```bash
+DOTFILES_BRANCH=mi-rama bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hoffy0/dotfiles/mi-rama/install.sh)"
 ```
 
 `install.sh` es idempotente: se puede volver a correr sin romper nada. Pide `sudo` para los pasos de sistema.
