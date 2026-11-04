@@ -136,6 +136,24 @@
             ],
             "right": [
                 {
+                    "hideMode": "expandWithOutput",
+                    "icon": "mouse",
+                    "id": "CustomButton",
+                    "parseJson": true,
+                    "showIcon": true,
+                    "textCommand": "~/bin/logi-battery.sh 'G502 X' mouse",
+                    "textIntervalMs": 60000
+                },
+                {
+                    "hideMode": "expandWithOutput",
+                    "icon": "keyboard",
+                    "id": "CustomButton",
+                    "parseJson": true,
+                    "showIcon": true,
+                    "textCommand": "~/bin/logi-battery.sh 'G515' keyboard",
+                    "textIntervalMs": 60000
+                },
+                {
                     "compactMode": false,
                     "hideMode": "hidden",
                     "hideWhenIdle": false,
