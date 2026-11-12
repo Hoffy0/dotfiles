@@ -1,0 +1,6 @@
+[Unit]
+Description=Hyprland session (activa graphical-session.target sin uwsm)
+Documentation=man:systemd.special(7)
+BindsTo=graphical-session.target
+Wants=graphical-session-pre.target
+After=graphical-session-pre.target

@@ -29,7 +29,7 @@ bind(mainMod .. " + V", exec(noct .. " launcher clipboard"))                    
 bind(mainMod .. " + D", exec(noct .. " launcher toggle"))                                   --==> App launcher
 bind(mainMod .. " + code:60", exec(noct .. " launcher emoji"))                              --==> Emoji picker
 bind(mainMod .. " + X", exec(noct .. " sessionMenu toggle"))                                --==> Session menu
-bind(mainMod .. " + L", exec(noct .. " lockScreen lock"))                                   --==> Lock screen
+bind(mainMod .. " + L", exec("~/bin/lock.sh"))                                            --==> Lock screen (hyprlock)
 bind(mainMod .. " + C", exec("hyprpicker -a"))                                              --==> Color Picker
 bind(mainMod .. " + B", exec(noct .. " bar toggle"))
 bind(mainMod .. " + N", exec(noct .. " notifications toggleHistory"))                       --==> Historial de notificaciones

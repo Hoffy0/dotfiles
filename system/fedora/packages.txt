@@ -17,13 +17,15 @@ nmap-ncat
 gcc-c++
 
 # --- NVIDIA (RPM Fusion nonfree)
-akmod-nvidia
-xorg-x11-drv-nvidia-cuda
+# akmod-nvidia  # ptah: sin NVIDIA
+# xorg-x11-drv-nvidia-cuda  # ptah: sin NVIDIA
 
 # --- Hyprland + Noctalia (COPR lionheartp/Hyprland)
 hyprland
 hyprpaper
 hyprpicker
+hyprlock
+hypridle
 noctalia-legacy
 noctalia-qs
 noctalia-greeter
