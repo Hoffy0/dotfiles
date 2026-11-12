@@ -2,3 +2,5 @@
 name=packages.twingate.com_rpm_ - Created by dnf5 config-manager
 enabled=1
 baseurl=https://packages.twingate.com/rpm/
+# Twingate publica sus RPM sin firmar (asi lo indica su doc oficial)
+gpgcheck=0

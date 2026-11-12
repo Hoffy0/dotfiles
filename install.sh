@@ -66,8 +66,11 @@ install_brew() {
     # Recien instalado no esta en el PATH de este proceso
     local b
     for b in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
-        [[ -x "$b" ]] && { eval "$("$b" shellenv)"; return; }
+        [[ -x "$b" ]] && { eval "$("$b" shellenv)"; break; }
     done
+    # Homebrew >= 7 no carga formulas de taps de terceros sin confiar en ellos
+    brew tap azure/kubelogin https://github.com/Azure/homebrew-kubelogin
+    brew trust azure/kubelogin
 }
 
 clone_if_missing() {

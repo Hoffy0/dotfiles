@@ -18,6 +18,9 @@ echo "==> Terra..."
 rpm -q terra-release >/dev/null 2>&1 || \
     sudo dnf install -y --nogpgcheck \
         --repofrompath "terra,https://repos.fyralabs.com/terra${FEDORA}" terra-release
+# Terra empaqueta ghostty partido en subpaquetes que chocan con el ghostty
+# monolitico del COPR scottames/ghostty: que gane el COPR.
+sudo dnf config-manager setopt "terra.excludepkgs=ghostty*"
 
 echo "==> Microsoft (azure-cli)..."
 rpm -q packages-microsoft-prod >/dev/null 2>&1 || \
@@ -38,9 +41,10 @@ mapfile -t pkgs < <(list "$HERE/packages.txt")
 sudo dnf install -y --skip-unavailable "${pkgs[@]}"
 
 echo "==> Flatpaks..."
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+# Con sudo: sin agente polkit (p.ej. por SSH) flatpak no puede tocar la instalacion de sistema
+sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 mapfile -t apps < <(list "$HERE/flatpaks.txt")
-flatpak install -y flathub "${apps[@]}"
+sudo flatpak install -y --noninteractive flathub "${apps[@]}"
 
 echo "==> Docker..."
 sudo systemctl enable --now docker

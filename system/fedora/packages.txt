@@ -24,8 +24,8 @@ xorg-x11-drv-nvidia-cuda
 hyprland
 hyprpaper
 hyprpicker
-noctalia-shell-legacy
-noctalia-qs-legacy
+noctalia-legacy
+noctalia-qs
 noctalia-greeter
 greetd
 greetd-selinux
